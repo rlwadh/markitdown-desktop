@@ -1,0 +1,25 @@
+# MarkItDown Desktop - Dependencies
+# Diese Datei listet alle benötigten Python-Pakete auf
+
+# Haupt-Konvertierungstool mit allen Features
+markitdown[all]>=0.1.0
+
+# GUI Framework (meist schon installiert)
+# tkinter  # Kommentiert da es meist mit Python kommt
+
+# Bildverarbeitung (falls nicht in markitdown[all] enthalten)
+Pillow>=8.0.0
+
+# Netzwerk-Requests (meist schon installiert)
+requests>=2.25.0
+
+# Optional: Markdown-Rendering für bessere Vorschau
+markdown>=3.3.0
+
+# Optional: Bessere HTML-Generierung
+beautifulsoup4>=4.9.0
+
+# Entwicklung (nur für Entwickler)
+# pyinstaller>=5.0.0
+# py2app>=0.28.0
+# auto-py-to-exe>=2.40.0
