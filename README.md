@@ -171,6 +171,19 @@ Diese Anwendung basiert auf dem **[Microsoft MarkItDown Tool](https://github.com
 - **GitHub Community** für Feedback und Beiträge
 - **Open-Source Community** für die genutzten Bibliotheken
 
+## 🆕 Recent Updates
+
+**v2.5 (June 2024)**
+- ✅ Fixed emoji display issues on macOS
+- ✅ Clean, text-based interface
+- ✅ Better cross-platform compatibility
+- ✅ All functionality maintained
+
+**v2.4 (June 2024)**
+- ✅ Complete GUI with donation support
+- ✅ Kindergarten project integration
+- ✅ Professional documentation
+
 ---
 
 <div align="center">
