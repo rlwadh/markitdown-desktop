@@ -17,7 +17,7 @@ SUPPORTED FORMATS:
 - Archives: ZIP files
 - E-Books: EPUB
 
-Version: 2.4 (Complete with Donation Support)
+Version: 2.5 (Clean - No Emoji Issues)
 Developer: Rudolf Wagner
 Kindergarten Project: https://www.paypal.com/donate/?hosted_button_id=PAGH54TWEXP54
 """
@@ -34,11 +34,11 @@ import platform
 
 # App Constants
 APP_NAME = "MarkItDown Desktop"
-APP_VERSION = "2.4"
+APP_VERSION = "2.5"
 
 def check_and_install_dependencies():
     """Check and install dependencies before GUI start"""
-    print("🔍 Checking MarkItDown installation...")
+    print("Checking MarkItDown installation...")
     
     try:
         from markitdown import MarkItDown
@@ -48,19 +48,19 @@ def check_and_install_dependencies():
         print("❌ MarkItDown not found.")
         
         # Ask user in terminal
-        response = input("\n🔧 Should MarkItDown be installed automatically? (y/n): ").lower().strip()
+        response = input("\nShould MarkItDown be installed automatically? (y/n): ").lower().strip()
         
         if response in ['y', 'yes', 'j', 'ja', '']:
-            print("\n📦 Installing MarkItDown...")
+            print("\nInstalling MarkItDown...")
             try:
                 # Installation with visible output
                 cmd = [sys.executable, "-m", "pip", "install", "--upgrade", "markitdown[all]"]
-                print(f"🔄 Running: {' '.join(cmd)}")
+                print(f"Running: {' '.join(cmd)}")
                 
                 result = subprocess.run(cmd, check=True, text=True)
                 
                 print("✅ Installation completed!")
-                print("🔄 Testing installation...")
+                print("Testing installation...")
                 
                 # Test import
                 from markitdown import MarkItDown
@@ -69,15 +69,15 @@ def check_and_install_dependencies():
                 
             except subprocess.CalledProcessError as e:
                 print(f"❌ Installation failed: {e}")
-                print("💡 Try manually: pip install 'markitdown[all]'")
+                print("Try manually: pip install 'markitdown[all]'")
                 return False
             except ImportError:
                 print("❌ Installation was successful, but import fails.")
-                print("💡 Please restart the application.")
+                print("Please restart the application.")
                 return False
         else:
             print("❌ Installation cancelled.")
-            print("💡 The app cannot function without MarkItDown.")
+            print("The app cannot function without MarkItDown.")
             print("   Install it manually with: pip install 'markitdown[all]'")
             return False
 
@@ -121,7 +121,7 @@ class MarkItDownApp:
         header_frame = ttk.Frame(main_frame)
         header_frame.pack(fill=tk.X, pady=(0, 20))
         
-        title_label = ttk.Label(header_frame, text="🔄 MarkItDown Desktop", 
+        title_label = ttk.Label(header_frame, text="MarkItDown Desktop", 
                                font=('Arial', 18, 'bold'))
         title_label.pack(side=tk.LEFT)
         
@@ -141,7 +141,7 @@ class MarkItDownApp:
         author_label.bind('<Button-1>', self.open_linkedin)
         
         # Donation link for kindergarten project
-        donate_label = ttk.Label(info_frame, text="🎁 Support Kindergarten Project", 
+        donate_label = ttk.Label(info_frame, text="Support Kindergarten Project", 
                                 font=('Arial', 8), 
                                 foreground='#e74c3c', cursor='hand2')
         donate_label.pack(pady=(2, 0))
@@ -166,7 +166,7 @@ class MarkItDownApp:
         self.create_right_panel(content_frame)
         
         # Status bar
-        self.status_bar = ttk.Label(main_frame, text="🟢 Ready", relief='sunken')
+        self.status_bar = ttk.Label(main_frame, text="Ready", relief='sunken')
         self.status_bar.pack(fill=tk.X, pady=(10, 0))
         
         # Check if MarkItDown is available
@@ -175,7 +175,7 @@ class MarkItDownApp:
     
     def create_left_panel(self, parent):
         """Left panel for file upload"""
-        left_frame = ttk.LabelFrame(parent, text="📁 File Upload", padding="15")
+        left_frame = ttk.LabelFrame(parent, text="File Upload", padding="15")
         left_frame.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S), padx=(0, 10))
         left_frame.columnconfigure(0, weight=1)
         
@@ -187,11 +187,11 @@ class MarkItDownApp:
         drop_frame.pack(fill=tk.BOTH, expand=True, padx=3, pady=3)
         drop_frame.pack_propagate(False)
         
-        # Drop zone content
+        # Drop zone content - NO EMOJIS
         drop_content = tk.Frame(drop_frame, bg='#e3f2fd')
         drop_content.place(relx=0.5, rely=0.5, anchor='center')
         
-        icon_label = tk.Label(drop_content, text="📁", font=('Arial', 36), 
+        icon_label = tk.Label(drop_content, text="[FILE]", font=('Arial', 24, 'bold'), 
                              bg='#e3f2fd', fg='#1976d2')
         icon_label.pack()
         
@@ -208,7 +208,7 @@ class MarkItDownApp:
             widget.bind('<Button-1>', self.select_file)
         
         # File info
-        self.file_info = ttk.Label(left_frame, text="📋 No file selected", 
+        self.file_info = ttk.Label(left_frame, text="No file selected", 
                                   font=('Arial', 10), wraplength=250)
         self.file_info.pack(anchor=tk.W, pady=(0, 15))
         
@@ -218,11 +218,11 @@ class MarkItDownApp:
         button_frame.columnconfigure(0, weight=1)
         button_frame.columnconfigure(1, weight=1)
         
-        self.select_btn = ttk.Button(button_frame, text="📂 Select File", 
+        self.select_btn = ttk.Button(button_frame, text="Select File", 
                                     command=self.select_file)
         self.select_btn.grid(row=0, column=0, sticky=(tk.W, tk.E), padx=(0, 5))
         
-        self.convert_btn = ttk.Button(button_frame, text="🔄 Convert", 
+        self.convert_btn = ttk.Button(button_frame, text="Convert", 
                                      command=self.convert_file, state='disabled')
         self.convert_btn.grid(row=0, column=1, sticky=(tk.W, tk.E), padx=(5, 0))
         
@@ -232,32 +232,34 @@ class MarkItDownApp:
         
         # Auto-convert option
         self.auto_convert = tk.BooleanVar(value=True)
-        auto_check = ttk.Checkbutton(left_frame, text="🚀 Auto-Convert", 
+        auto_check = ttk.Checkbutton(left_frame, text="Auto-Convert", 
                                     variable=self.auto_convert)
         auto_check.pack(anchor=tk.W, pady=(0, 15))
         
-        # Supported formats
-        formats_frame = ttk.LabelFrame(left_frame, text="📋 Supported Formats", 
-                                      padding="10")
-        formats_frame.pack(fill=tk.X)
+        # CLEAN supported formats - NO EMOJIS
+        formats_title = ttk.Label(left_frame, text="Supported Formats:", 
+                                 font=('Arial', 10, 'bold'))
+        formats_title.pack(anchor=tk.W, pady=(10, 5))
         
-        formats_text = (
-            "📄 Office: Word, Excel, PowerPoint\n"
-            "📕 PDF: All PDF documents\n" 
-            "🖼️ Images: JPG, PNG, GIF (with OCR)\n"
-            "🎵 Audio: MP3, WAV (transcription)\n"
-            "🌐 Web: HTML, CSV, JSON, XML\n"
-            "📦 Archives: ZIP files\n"
-            "📖 E-Books: EPUB"
-        )
+        # Simple text list
+        formats_list = [
+            "• Office: Word, Excel, PowerPoint",
+            "• PDF: All PDF documents", 
+            "• Images: JPG, PNG, GIF (with OCR)",
+            "• Audio: MP3, WAV (transcription)",
+            "• Web: HTML, CSV, JSON, XML",
+            "• Archives: ZIP files",
+            "• E-Books: EPUB"
+        ]
         
-        formats_label = tk.Label(formats_frame, text=formats_text, 
-                                font=('Arial', 9), justify=tk.LEFT, bg='white')
-        formats_label.pack(fill=tk.X)
+        for format_text in formats_list:
+            format_label = ttk.Label(left_frame, text=format_text, 
+                                   font=('Arial', 9))
+            format_label.pack(anchor=tk.W)
     
     def create_right_panel(self, parent):
         """Right panel for output"""
-        right_frame = ttk.LabelFrame(parent, text="📝 Markdown Output", padding="15")
+        right_frame = ttk.LabelFrame(parent, text="Markdown Output", padding="15")
         right_frame.grid(row=0, column=1, sticky=(tk.W, tk.E, tk.N, tk.S))
         right_frame.columnconfigure(0, weight=1)
         right_frame.rowconfigure(1, weight=1)
@@ -267,55 +269,55 @@ class MarkItDownApp:
         toolbar_frame.grid(row=0, column=0, sticky=(tk.W, tk.E), pady=(0, 10))
         toolbar_frame.columnconfigure(5, weight=1)
         
-        self.copy_btn = ttk.Button(toolbar_frame, text="📋 Copy", 
+        self.copy_btn = ttk.Button(toolbar_frame, text="Copy", 
                                   command=self.copy_markdown, state='disabled')
         self.copy_btn.grid(row=0, column=0, padx=(0, 5))
         
-        self.save_btn = ttk.Button(toolbar_frame, text="💾 Save", 
+        self.save_btn = ttk.Button(toolbar_frame, text="Save", 
                                   command=self.save_markdown, state='disabled')
         self.save_btn.grid(row=0, column=1, padx=(0, 5))
         
-        self.preview_btn = ttk.Button(toolbar_frame, text="👁️ Preview", 
+        self.preview_btn = ttk.Button(toolbar_frame, text="Preview", 
                                      command=self.preview_markdown, state='disabled')
         self.preview_btn.grid(row=0, column=2, padx=(0, 5))
         
-        self.clear_btn = ttk.Button(toolbar_frame, text="🗑️ Clear", 
+        self.clear_btn = ttk.Button(toolbar_frame, text="Clear", 
                                    command=self.clear_output, state='disabled')
         self.clear_btn.grid(row=0, column=3, padx=(0, 5))
         
         # Help button
-        help_btn = ttk.Button(toolbar_frame, text="❓ Help", 
+        help_btn = ttk.Button(toolbar_frame, text="Help", 
                              command=self.show_help)
         help_btn.grid(row=0, column=6)
         
         # Donation button
-        donate_btn = ttk.Button(toolbar_frame, text="🎁 Donate", 
+        donate_btn = ttk.Button(toolbar_frame, text="Donate", 
                                command=self.open_donation)
         donate_btn.grid(row=0, column=7, padx=(5, 0))
         
-        # Output area with corrected text color
+        # Output area
         self.output_text = scrolledtext.ScrolledText(right_frame, 
                                                     wrap=tk.WORD, 
                                                     font=('Monaco', 11) if platform.system() == 'Darwin' else ('Consolas', 10),
                                                     state='disabled',
                                                     bg='white',
-                                                    fg='#333333',  # Dark text color
-                                                    insertbackground='#333333',  # Cursor color
-                                                    selectbackground='#e3f2fd',  # Selection background
-                                                    selectforeground='#1976d2',  # Selection text color
+                                                    fg='#333333',
+                                                    insertbackground='#333333',
+                                                    selectbackground='#e3f2fd',
+                                                    selectforeground='#1976d2',
                                                     relief='sunken',
                                                     borderwidth=1)
         self.output_text.grid(row=1, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
         
         # Stats
-        self.stats_label = ttk.Label(right_frame, text="📊 Statistics: -", 
+        self.stats_label = ttk.Label(right_frame, text="Statistics: -", 
                                      font=('Arial', 9))
         self.stats_label.grid(row=2, column=0, sticky=tk.W, pady=(10, 0))
     
     def show_error_message(self):
         """Show error message if MarkItDown is missing"""
         error_msg = """
-❌ MarkItDown is not available!
+MarkItDown is not available!
 
 The application cannot function without MarkItDown.
 
@@ -325,13 +327,13 @@ pip install "markitdown[all]"
 Or restart the app for automatic installation.
 """
         messagebox.showerror("MarkItDown Missing", error_msg)
-        self.update_status("❌ MarkItDown not available")
+        self.update_status("MarkItDown not available")
     
     def open_linkedin(self, event=None):
         """Open LinkedIn profile"""
         try:
             webbrowser.open("https://www.linkedin.com/in/rudolfwagner")
-            self.update_status("🔗 LinkedIn profile opened")
+            self.update_status("LinkedIn profile opened")
         except Exception as e:
             print(f"Error opening link: {e}")
     
@@ -339,7 +341,7 @@ Or restart the app for automatic installation.
         """Open PayPal donation link for kindergarten project"""
         try:
             webbrowser.open("https://www.paypal.com/donate/?hosted_button_id=PAGH54TWEXP54")
-            self.update_status("🎁 Thank you for supporting the kindergarten project!")
+            self.update_status("Thank you for supporting the kindergarten project!")
         except Exception as e:
             print(f"Error opening donation link: {e}")
     
@@ -351,7 +353,6 @@ Or restart the app for automatic installation.
         
         try:
             # Simplified filetypes for macOS compatibility
-            # No complex multi-extensions that crash macOS
             filetypes = [
                 ('All Files', '*.*'),
                 ('PDF Documents', '*.pdf'),
@@ -395,7 +396,7 @@ Or restart the app for automatic installation.
             except Exception as e2:
                 messagebox.showerror("Dialog Error", 
                                    f"File dialog not working: {str(e2)}\n\n"
-                                   f"Please drag files directly onto the blue area.")
+                                   f"Please try restarting the application.")
     
     def process_file(self, filepath):
         """Process selected file"""
@@ -425,9 +426,9 @@ Or restart the app for automatic installation.
         filename = os.path.basename(filepath)
         filesize = self.format_filesize(os.path.getsize(filepath))
         
-        self.file_info.config(text=f"📄 {filename}\n💾 {filesize}")
+        self.file_info.config(text=f"{filename}\nSize: {filesize}")
         self.convert_btn.config(state='normal')
-        self.update_status(f"📁 File loaded: {filename}")
+        self.update_status(f"File loaded: {filename}")
         
         # Auto-convert
         if self.auto_convert.get():
@@ -441,26 +442,26 @@ Or restart the app for automatic installation.
         self.processing = True
         self.progress.start()
         self.convert_btn.config(state='disabled')
-        self.update_status("🔄 Converting...")
+        self.update_status("Converting...")
         
         # Threading for conversion
         def convert_thread():
             try:
-                print(f"🔄 Converting: {self.current_file}")
+                print(f"Converting: {self.current_file}")
                 result = self.markitdown.convert(self.current_file)
                 markdown_content = result.text_content
                 
                 if not markdown_content:
                     raise Exception("No content extracted")
                 
-                print(f"✅ Conversion successful: {len(markdown_content)} characters")
+                print(f"Conversion successful: {len(markdown_content)} characters")
                 self.current_markdown = markdown_content
                 
                 # UI update in main thread
                 self.root.after(0, lambda: self.display_result(markdown_content))
                 
             except Exception as e:
-                print(f"❌ Conversion failed: {e}")
+                print(f"Conversion failed: {e}")
                 error_msg = f"Conversion failed: {str(e)}"
                 self.root.after(0, lambda: self.show_conversion_error(error_msg))
             
@@ -471,15 +472,11 @@ Or restart the app for automatic installation.
         thread.start()
     
     def display_result(self, content):
-        """Show conversion result with proper markdown formatting"""
+        """Show conversion result"""
         self.output_text.config(state='normal')
         self.output_text.delete(1.0, tk.END)
-        
-        # Insert the actual markdown content (it should already be proper markdown from MarkItDown)
         self.output_text.insert(1.0, content)
-        
-        # Ensure text is visible
-        self.output_text.config(state='disabled', fg='#333333', bg='white')
+        self.output_text.config(state='disabled')
         
         # Enable buttons
         self.copy_btn.config(state='normal')
@@ -491,14 +488,14 @@ Or restart the app for automatic installation.
         lines = len(content.split('\n'))
         words = len(content.split())
         chars = len(content)
-        self.stats_label.config(text=f"📊 {lines} lines, {words} words, {chars} characters")
+        self.stats_label.config(text=f"Statistics: {lines} lines, {words} words, {chars} characters")
         
-        self.update_status("✅ Conversion successful!")
+        self.update_status("Conversion successful!")
     
     def show_conversion_error(self, error_msg):
         """Show conversion error"""
         messagebox.showerror("Conversion Error", error_msg)
-        self.update_status(f"❌ {error_msg}")
+        self.update_status(f"Error: {error_msg}")
     
     def conversion_finished(self):
         """Cleanup after conversion"""
@@ -511,7 +508,7 @@ Or restart the app for automatic installation.
         if self.current_markdown:
             self.root.clipboard_clear()
             self.root.clipboard_append(self.current_markdown)
-            self.update_status("📋 Copied to clipboard!")
+            self.update_status("Copied to clipboard!")
     
     def save_markdown(self):
         """Save as file"""
@@ -524,7 +521,6 @@ Or restart the app for automatic installation.
             default_name = f"{base_name}.md"
         
         try:
-            # Simplified save dialog for macOS
             filename = filedialog.asksaveasfilename(
                 title="Save Markdown",
                 defaultextension=".md",
@@ -539,24 +535,14 @@ Or restart the app for automatic installation.
             if filename:
                 with open(filename, 'w', encoding='utf-8') as f:
                     f.write(self.current_markdown)
-                self.update_status(f"💾 Saved: {os.path.basename(filename)}")
+                self.update_status(f"Saved: {os.path.basename(filename)}")
                 
         except Exception as e:
-            print(f"Save dialog error: {e}")
-            # Fallback
-            try:
-                filename = filedialog.asksaveasfilename(title="Save Markdown")
-                if filename:
-                    if not filename.endswith('.md'):
-                        filename += '.md'
-                    with open(filename, 'w', encoding='utf-8') as f:
-                        f.write(self.current_markdown)
-                    self.update_status(f"💾 Saved: {os.path.basename(filename)}")
-            except Exception as e2:
-                messagebox.showerror("Save Error", f"Error: {str(e2)}")
+            print(f"Save error: {e}")
+            messagebox.showerror("Save Error", f"Error: {str(e)}")
     
     def preview_markdown(self):
-        """HTML preview with proper markdown rendering"""
+        """HTML preview"""
         if not self.current_markdown:
             return
         
@@ -565,10 +551,10 @@ Or restart the app for automatic installation.
             import markdown
             html_content = markdown.markdown(self.current_markdown, extensions=['tables', 'fenced_code', 'codehilite'])
         except ImportError:
-            # Fallback: basic HTML conversion for common markdown elements
+            # Fallback: basic HTML conversion
             html_content = self.basic_markdown_to_html(self.current_markdown)
         
-        # Complete HTML document with enhanced styling
+        # Complete HTML document
         full_html = f"""
 <!DOCTYPE html>
 <html>
@@ -601,13 +587,6 @@ Or restart the app for automatic installation.
             border-bottom: 2px solid #ecf0f1;
             padding-bottom: 0.3em;
         }}
-        h3 {{ font-size: 1.5em; }}
-        h4 {{ font-size: 1.25em; }}
-        h5 {{ font-size: 1.1em; }}
-        h6 {{ font-size: 1em; color: #7f8c8d; }}
-        
-        p {{ margin: 1em 0; }}
-        
         pre {{ 
             background: #f8f9fa; 
             padding: 1em; 
@@ -624,26 +603,10 @@ Or restart the app for automatic installation.
             font-size: 0.9em;
             color: #e74c3c;
         }}
-        pre code {{
-            background: transparent;
-            padding: 0;
-            color: #2c3e50;
-        }}
-        
-        blockquote {{ 
-            border-left: 4px solid #3498db; 
-            margin: 1.5em 0; 
-            padding: 0.5em 0 0.5em 1em; 
-            color: #7f8c8d; 
-            font-style: italic;
-            background: #f8f9fa;
-        }}
-        
         table {{ 
             border-collapse: collapse; 
             width: 100%; 
             margin: 1.5em 0;
-            border: 1px solid #ddd;
         }}
         th, td {{ 
             border: 1px solid #ddd; 
@@ -653,85 +616,20 @@ Or restart the app for automatic installation.
         th {{ 
             background-color: #3498db; 
             color: white;
-            font-weight: 600;
-        }}
-        tr:nth-child(even) {{
-            background-color: #f8f9fa;
-        }}
-        tr:hover {{
-            background-color: #e8f4f8;
-        }}
-        
-        ul, ol {{ 
-            margin: 1em 0; 
-            padding-left: 2em; 
-        }}
-        li {{ 
-            margin: 0.5em 0; 
-        }}
-        li ul, li ol {{
-            margin: 0.5em 0;
-        }}
-        
-        strong, b {{ 
-            color: #2c3e50; 
-            font-weight: 600;
-        }}
-        em, i {{ 
-            color: #7f8c8d; 
-            font-style: italic;
-        }}
-        
-        a {{
-            color: #3498db;
-            text-decoration: none;
-        }}
-        a:hover {{
-            text-decoration: underline;
-        }}
-        
-        hr {{
-            border: none;
-            height: 2px;
-            background: #ecf0f1;
-            margin: 2em 0;
-        }}
-        
-        img {{
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }}
-        
-        .header {{
-            text-align: center;
-            margin-bottom: 2em;
-            padding-bottom: 1em;
-            border-bottom: 2px solid #ecf0f1;
-        }}
-        
-        .footer {{
-            text-align: center;
-            margin-top: 3em;
-            padding-top: 1em;
-            border-top: 1px solid #ecf0f1;
-            color: #95a5a6;
-            font-size: 0.9em;
         }}
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>📄 Markdown Preview</h1>
+    <div style="text-align: center; margin-bottom: 2em; padding-bottom: 1em; border-bottom: 2px solid #ecf0f1;">
+        <h1>Markdown Preview</h1>
         <p>Generated by MarkItDown Desktop</p>
     </div>
     
     {html_content}
     
-    <div class="footer">
+    <div style="text-align: center; margin-top: 3em; padding-top: 1em; border-top: 1px solid #ecf0f1; color: #95a5a6; font-size: 0.9em;">
         <p>Converted with MarkItDown Desktop by Rudolf Wagner</p>
-        <p>🎁 <a href="https://www.paypal.com/donate/?hosted_button_id=PAGH54TWEXP54">Support the Kindergarten Project</a></p>
+        <p><a href="https://www.paypal.com/donate/?hosted_button_id=PAGH54TWEXP54">Support the Kindergarten Project</a></p>
     </div>
 </body>
 </html>
@@ -743,7 +641,7 @@ Or restart the app for automatic installation.
                 temp_file = f.name
             
             webbrowser.open(f'file://{temp_file}')
-            self.update_status("👁️ Preview opened")
+            self.update_status("Preview opened")
         except Exception as e:
             messagebox.showerror("Preview Error", f"Could not open preview: {str(e)}")
     
@@ -757,9 +655,6 @@ Or restart the app for automatic installation.
         html = re.sub(r'^# (.*$)', r'<h1>\1</h1>', html, flags=re.MULTILINE)
         html = re.sub(r'^## (.*$)', r'<h2>\1</h2>', html, flags=re.MULTILINE)
         html = re.sub(r'^### (.*$)', r'<h3>\1</h3>', html, flags=re.MULTILINE)
-        html = re.sub(r'^#### (.*$)', r'<h4>\1</h4>', html, flags=re.MULTILINE)
-        html = re.sub(r'^##### (.*$)', r'<h5>\1</h5>', html, flags=re.MULTILINE)
-        html = re.sub(r'^###### (.*$)', r'<h6>\1</h6>', html, flags=re.MULTILINE)
         
         # Bold and Italic
         html = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', html)
@@ -781,7 +676,7 @@ Or restart the app for automatic installation.
     
     def clear_output(self):
         """Clear output"""
-        self.output_text.config(state='normal', fg='#333333', bg='white')
+        self.output_text.config(state='normal')
         self.output_text.delete(1.0, tk.END)
         self.output_text.config(state='disabled')
         
@@ -795,22 +690,22 @@ Or restart the app for automatic installation.
         self.clear_btn.config(state='disabled')
         self.convert_btn.config(state='disabled')
         
-        self.file_info.config(text="📋 No file selected")
-        self.stats_label.config(text="📊 Statistics: -")
-        self.update_status("🟢 Ready")
+        self.file_info.config(text="No file selected")
+        self.stats_label.config(text="Statistics: -")
+        self.update_status("Ready")
     
     def show_help(self):
         """Show help"""
         help_text = f"""
 {APP_NAME} v{APP_VERSION} - by Rudolf Wagner
 
-🔄 USAGE:
+USAGE:
 1. Select file (click blue area or button)
 2. Conversion starts automatically
 3. Markdown is displayed on the right
 4. Copy, Save or Preview
 
-📋 SUPPORTED FORMATS:
+SUPPORTED FORMATS:
 • Office: Word, Excel, PowerPoint
 • PDF: All PDF documents
 • Images: JPG, PNG, GIF (with OCR)
@@ -819,27 +714,26 @@ Or restart the app for automatic installation.
 • Archives: ZIP files
 • E-Books: EPUB
 
-⚡ FEATURES:
+FEATURES:
 • Auto-conversion enabled
 • Preview shows formatted HTML
 • Statistics about content
 • Clipboard integration
 
-🛠️ TROUBLESHOOTING:
+TROUBLESHOOTING:
 • Internet connection needed for audio
 • Large files take more time
 • OCR works only on clear images
 
-🍎 macOS NOTES:
-• If dialog problems: drag files directly to blue area
-• Drag & Drop might not work in all versions
-• Use 'Select File' button as alternative
+macOS NOTES:
+• If dialog problems: use 'Select File' button
+• Restart app if conversion fails
 
-👨‍💻 DEVELOPED BY:
+DEVELOPED BY:
 Rudolf Wagner
 LinkedIn: https://www.linkedin.com/in/rudolfwagner
 
-🎁 SUPPORTING A GREAT CAUSE:
+SUPPORTING A GREAT CAUSE:
 The developer is founding a kindergarten!
 Support this meaningful project:
 PayPal: https://www.paypal.com/donate/?hosted_button_id=PAGH54TWEXP54
@@ -847,7 +741,7 @@ PayPal: https://www.paypal.com/donate/?hosted_button_id=PAGH54TWEXP54
 Every donation helps create a nurturing environment
 for children's early education and development.
 
-📧 SUPPORT:
+SUPPORT:
 For technical issues visit:
 github.com/microsoft/markitdown
 
@@ -937,8 +831,7 @@ def main():
         print("✅ GUI started successfully!")
         print("📋 You can now convert files.")
         print("🎁 Don't forget to check out the kindergarten donation option!")
-        print("\n💡 TIP: If file dialog has problems,")
-        print("   drag files directly onto the blue area!")
+        print("\n💡 TIP: If file dialog has problems, use the 'Select File' button!")
         
         # Start main loop
         root.mainloop()
