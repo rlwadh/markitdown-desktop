@@ -1,81 +1,43 @@
 # MarkItDown Desktop v3.0 Requirements
-# Automatisch installiert beim ersten Start der Desktop-App
+# Automatically installed when you run: python markitdown_desktop_v3.py
 
-# Core conversion engine
+# Core conversion engine with ALL features
 markitdown[all]>=0.0.1a4
 
-# GUI Framework (meist mit Python vorinstalliert)
-# tkinter  # Kommentiert, da meist vorinstalliert
+# GUI Framework (usually pre-installed with Python)
+# tkinter  # Uncomment if needed
 
-# Zusätzliche Abhängigkeiten für erweiterte Features
-# (werden automatisch mit markitdown[all] installiert)
-
-# PDF-Verarbeitung
-# PyPDF2>=3.0.0
-# pdfplumber>=0.9.0
-
-# Office-Dokumente
-# python-docx>=0.8.11
-# openpyxl>=3.1.0
-# python-pptx>=0.6.21
-
-# Bildverarbeitung und OCR
-# Pillow>=9.0.0
-# pytesseract>=0.3.10
-
-# Audio-Verarbeitung
-# SpeechRecognition>=3.10.0
-# pydub>=0.25.1
-
-# Web und strukturierte Daten
-# requests>=2.31.0
-# beautifulsoup4>=4.12.0
-# lxml>=4.9.0
-# pandas>=1.5.0
-
-# Archive-Verarbeitung
-# zipfile36>=0.1.3
-
-# E-Book-Verarbeitung
-# ebooklib>=0.18
-
-# Entwicklungstools (optional)
-# pytest>=7.0.0
-# black>=22.0.0
-# flake8>=4.0.0
-
-# ===================================
-# INSTALLATION:
-# ===================================
-# 
-# Automatisch (Empfohlen):
-# python markitdown_desktop_v3.py
-# 
-# Manuell:
-# pip install -r requirements.txt
-# 
-# Nur Core-Engine:
+# ===========================================
+# AUTOMATIC INSTALLATION:
+# ===========================================
+# Just run: python markitdown_desktop_v3.py
+# All dependencies install automatically!
+#
+# MANUAL INSTALLATION:
 # pip install "markitdown[all]"
-# 
-# ===================================
-# KOMPATIBILITÄT:
-# ===================================
-# 
+#
+# WHAT GETS INSTALLED:
+# - PDF processing capabilities
+# - OCR for image text extraction  
+# - Audio transcription features
+# - Office document support
+# - Web and archive processing
+#
+# ===========================================
+# SYSTEM REQUIREMENTS:
+# ===========================================
 # Python: 3.7+
-# Betriebssysteme: 
-#   - Windows 10/11
-#   - macOS 10.14+
-#   - Linux (Ubuntu 18.04+, Debian 10+)
-# 
-# ===================================
+# OS: Windows 10+, macOS 10.14+, Linux
+# RAM: 1GB minimum, 4GB recommended
+# Storage: 100MB for dependencies
+#
+# ===========================================
 # TROUBLESHOOTING:
-# ===================================
-# 
-# Bei Installationsproblemen:
-# 1. Python aktualisieren: python --version
-# 2. pip aktualisieren: pip install --upgrade pip
-# 3. Neuinstallation: pip install --upgrade --force-reinstall "markitdown[all]"
-# 4. Windows: Microsoft Visual C++ Build Tools installieren
-# 5. macOS: Xcode Command Line Tools installieren: xcode-select --install
-# 6. Linux: build-essential installieren: sudo apt-get install build-essential
+# ===========================================
+# If installation fails:
+# 1. Update pip: pip install --upgrade pip
+# 2. Install manually: pip install "markitdown[all]"
+# 3. Windows: Install Visual C++ Build Tools
+# 4. macOS: Install Xcode Command Line Tools
+# 5. Linux: sudo apt-get install build-essential
 #
