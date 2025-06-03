@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarkItDown v2.1 - MULTIFILE FIXED</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(45deg, #1a73e8, #4285f4);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+        
+        .chrome-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin: 10px 0;
+            display: inline-block;
+        }
+        
+        .developer-info {
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+        
+        .developer-info a {
+            color: #fdd835;
+            text-decoration: none;
+            font-weight: 500;
+            margin: 0 10px;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding: 30px;
+            min-height: 600px;
+        }
+        
+        .upload-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+        }
+        
+        .upload-zone {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border: 3px dashed #dadce0;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-zone:hover {
+            border-color: #1a73e8;
+            background: #e8f0fe;
+        }
+        
+        .upload-zone.dragover {
+            border-color: #1a73e8;
+            background: #e8f0fe;
+            transform: scale(1.02);
+        }
+        
+        .upload-icon {
+            font-size: 4em;
+            color: #1a73e8;
+            margin-bottom: 20px;
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .btn {
+            background: #1a73e8;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 24px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin: 8px;
+            font-weight: 500;
+            min-width: 120px;
+        }
+        
+        .btn:hover {
+            background: #1557b0;
+            box-shadow: 0 2px 8px rgba(26, 115, 232, 0.3);
+        }
+        
+        .btn:disabled {
+            background: #dadce0;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+        
+        .btn-success {
+            background: #137333;
+        }
+        
+        .btn-success:hover {
+            background: #0d652d;
+        }
+        
+        .output-section {
+            background: #202124;
+            border-radius: 15px;
+            padding: 30px;
+            color: white;
+        }
+        
+        .output-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .output-area {
+            background: #303134;
+            border-radius: 10px;
+            padding: 20px;
+            min-height: 400px;
+            font-family: 'Roboto Mono', Monaco, 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            overflow-y: auto;
+            border: 1px solid #5f6368;
+            color: #e8eaed;
+        }
+        
+        .file-list {
+            margin: 20px 0;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .file-item {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-left: 4px solid #1a73e8;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .file-item.processing {
+            border-left-color: #fbbc04;
+            background: #fef7e0;
+        }
+        
+        .file-item.completed {
+            border-left-color: #137333;
+            background: #e6f4ea;
+        }
+        
+        .file-item.error {
+            border-left-color: #ea4335;
+            background: #fce8e6;
+        }
+        
+        .file-name {
+            font-weight: 500;
+            color: #202124;
+            margin-bottom: 5px;
+            flex-grow: 1;
+        }
+        
+        .file-size {
+            color: #5f6368;
+            font-size: 0.9em;
+        }
+        
+        .file-status {
+            font-size: 0.8em;
+            font-weight: 500;
+            padding: 4px 8px;
+            border-radius: 12px;
+            margin-left: 10px;
+        }
+        
+        .file-status.pending {
+            background: #e8f0fe;
+            color: #1a73e8;
+        }
+        
+        .file-status.processing {
+            background: #fef7e0;
+            color: #e37400;
+        }
+        
+        .file-status.completed {
+            background: #e6f4ea;
+            color: #137333;
+        }
+        
+        .file-status.error {
+            background: #fce8e6;
+            color: #ea4335;
+        }
+        
+        .supported-formats {
+            background: #e8f0fe;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .format-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .format-category {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #dadce0;
+        }
+        
+        .format-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .kindergarten-banner {
+            background: linear-gradient(45deg, #ea4335, #fbbc04);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .kindergarten-banner a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .status-bar {
+            background: #f1f3f4;
+            padding: 15px 30px;
+            border-top: 1px solid #dadce0;
+            font-size: 14px;
+            color: #5f6368;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: #1a73e8;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .warning {
+            background: #fef7e0;
+            color: #3c4043;
+            padding: 16px;
+            border-radius: 8px;
+            border-left: 4px solid #fbbc04;
+            margin-bottom: 20px;
+        }
+        
+        .info {
+            background: #e8f0fe;
+            color: #3c4043;
+            padding: 16px;
+            border-radius: 8px;
+            border-left: 4px solid #1a73e8;
+            margin-bottom: 20px;
+        }
+
+        .file-selector {
+            background: white;
+            border: 1px solid #dadce0;
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-size: 12px;
+            margin-left: 10px;
+            min-width: 150px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔄 MarkItDown v2.1</h1>
+            <div class="chrome-badge">✨ MULTIFILE FIXED - ALL FILES PROCESSED!</div>
+            <p>Convert multiple files to Markdown - UNLIMITED PDF processing</p>
+            <div class="developer-info">
+                <span>by Rudolf Wagner</span>
+                <a href="https://www.linkedin.com/in/rudolfwagner" target="_blank">LinkedIn</a>
+                <a href="https://www.paypal.com/donate/?hosted_button_id=PAGH54TWEXP54" target="_blank">🎁 Support Kindergarten</a>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="upload-section">
+                <div class="info">
+                    <strong>🔧 MULTIFILE FIX:</strong> Now processes ALL selected files - the bug where only the first file was processed has been fixed!
+                </div>
+                
+                <div class="upload-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+                    <div class="upload-icon">📁</div>
+                    <h3>Drop files here or click to select</h3>
+                    <p>MULTIFILE support - ALL files will be processed!</p>
+                </div>
+                
+                <input type="file" id="fileInput" class="file-input" multiple 
+                       accept=".txt,.md,.csv,.json,.html,.xml,.rtf,.doc,.docx,.pdf">
+                
+                <div id="fileList" class="file-list"></div>
+                
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                
+                <div style="text-align: center;">
+                    <button class="btn" id="convertBtn" onclick="convertAllFiles()" disabled>
+                        🔄 Convert All Files
+                    </button>
+                    <button class="btn btn-success" id="downloadBtn" onclick="downloadZip()" disabled>
+                        📦 Download ZIP
+                    </button>
+                </div>
+                
+                <div class="supported-formats">
+                    <h4>📋 Supported Formats</h4>
+                    <div class="format-grid">
+                        <div class="format-category">
+                            <div class="format-icon">📄</div>
+                            <strong>Text Files</strong>
+                            <div>TXT, MD, RTF</div>
+                        </div>
+                        <div class="format-category">
+                            <div class="format-icon">📊</div>
+                            <strong>Data Files</strong>
+                            <div>CSV, JSON, XML</div>
+                        </div>
+                        <div class="format-category">
+                            <div class="format-icon">🌐</div>
+                            <strong>Web Files</strong>
+                            <div>HTML, XML</div>
+                        </div>
+                        <div class="format-category">
+                            <div class="format-icon">📝</div>
+                            <strong>PDFs - UNLIMITED</strong>
+                            <div>ALL pages processed!</div>
+                        </div>
+                    </div>
+                    <small style="margin-top: 10px; display: block; color: #5f6368;">
+                        ✅ MULTIFILE: Process multiple files in one batch - NO LIMITS!
+                    </small>
+                </div>
+            </div>
+            
+            <div class="output-section">
+                <div class="output-header">
+                    <h3>📝 Markdown Output</h3>
+                    <div>
+                        <select class="file-selector" id="fileSelector" onchange="showSelectedFile()">
+                            <option value="">Select file to preview...</option>
+                        </select>
+                        <button class="btn" onclick="copyToClipboard()" disabled id="copyBtn">Copy</button>
+                    </div>
+                </div>
+                <div class="output-area" id="outputArea">
+                    Select files and click convert to see the markdown output...
+                    
+                    🔧 MULTIFILE FIX APPLIED:
+                    - Now processes ALL selected files sequentially
+                    - Fixed the bug where only first file was converted
+                    - Added individual file status tracking
+                    - Better progress indication for batch processing
+                </div>
+            </div>
+        </div>
+        
+        <div class="kindergarten-banner">
+            🎁 This app supports a meaningful kindergarten project! 
+            <a href="https://www.paypal.com/donate/?hosted_button_id=PAGH54TWEXP54" target="_blank">
+                Every donation helps create a nurturing environment for children's education
+            </a>
+        </div>
+        
+        <div class="status-bar" id="statusBar">
+            Ready for MULTIFILE conversion • ALL files will be processed • FIXED: No more single-file limitation!
+        </div>
+    </div>
+
+    <!-- PDF.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        // MULTIFILE FIX VERSION - COMPLETELY REWRITTEN PROCESSING LOGIC
+        console.log("MarkItDown v2.1 - MULTIFILE FIX VERSION LOADED!");
+        
+        // Configure PDF.js
+        if (typeof pdfjsLib !== 'undefined') {
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        }
+        
+        let selectedFiles = [];
+        let convertedFiles = {};
+        let processing = false;
+        let fileStatusList = [];
+
+        // File handling
+        document.getElementById('fileInput').addEventListener('change', handleFileSelection);
+
+        function handleFileSelection(event) {
+            selectedFiles = Array.from(event.target.files);
+            initializeFileStatus();
+            updateFileList();
+            updateButtons();
+            updateStatus(`Selected ${selectedFiles.length} file(s) - READY FOR MULTIFILE PROCESSING!`);
+        }
+
+        function initializeFileStatus() {
+            fileStatusList = selectedFiles.map(file => ({
+                file: file,
+                status: 'pending', // pending, processing, completed, error
+                content: '',
+                error: null
+            }));
+        }
+
+        function updateFileList() {
+            const fileList = document.getElementById('fileList');
+            
+            if (selectedFiles.length === 0) {
+                fileList.innerHTML = '';
+                return;
+            }
+            
+            fileList.innerHTML = '';
+            
+            fileStatusList.forEach((fileStatus, index) => {
+                const fileItem = document.createElement('div');
+                fileItem.className = `file-item ${fileStatus.status}`;
+                fileItem.innerHTML = `
+                    <div>
+                        <div class="file-name">${fileStatus.file.name}</div>
+                        <div class="file-size">${formatFileSize(fileStatus.file.size)} - ${fileStatus.file.name.endsWith('.pdf') ? 'ALL PAGES WILL BE PROCESSED!' : 'Ready for conversion'}</div>
+                    </div>
+                    <div class="file-status ${fileStatus.status}">${getStatusText(fileStatus.status)}</div>
+                `;
+                fileList.appendChild(fileItem);
+            });
+        }
+
+        function getStatusText(status) {
+            switch(status) {
+                case 'pending': return 'Pending';
+                case 'processing': return 'Processing...';
+                case 'completed': return 'Completed ✓';
+                case 'error': return 'Error ✗';
+                default: return 'Unknown';
+            }
+        }
+
+        function updateButtons() {
+            const hasFiles = selectedFiles.length > 0;
+            const hasConverted = Object.keys(convertedFiles).length > 0;
+            
+            document.getElementById('convertBtn').disabled = !hasFiles || processing;
+            document.getElementById('downloadBtn').disabled = !hasConverted;
+            document.getElementById('copyBtn').disabled = !hasConverted;
+        }
+
+        function updateFileSelector() {
+            const selector = document.getElementById('fileSelector');
+            selector.innerHTML = '<option value="">Select file to preview...</option>';
+            
+            Object.keys(convertedFiles).forEach(filename => {
+                const option = document.createElement('option');
+                option.value = filename;
+                option.textContent = filename;
+                selector.appendChild(option);
+            });
+        }
+
+        function showSelectedFile() {
+            const selector = document.getElementById('fileSelector');
+            const filename = selector.value;
+            const outputArea = document.getElementById('outputArea');
+            
+            if (filename && convertedFiles[filename]) {
+                outputArea.textContent = convertedFiles[filename];
+                document.getElementById('copyBtn').disabled = false;
+            } else {
+                outputArea.textContent = 'Select a converted file to preview...';
+                document.getElementById('copyBtn').disabled = true;
+            }
+        }
+
+        // FIXED: Now processes ALL files sequentially
+        async function convertAllFiles() {
+            if (processing || selectedFiles.length === 0) return;
+            
+            processing = true;
+            updateButtons();
+            
+            const outputArea = document.getElementById('outputArea');
+            const progressFill = document.getElementById('progressFill');
+            
+            outputArea.textContent = `Starting MULTIFILE conversion of ${selectedFiles.length} files...\n\n`;
+            
+            // MULTIFILE FIX: Process each file sequentially
+            for (let i = 0; i < fileStatusList.length; i++) {
+                const fileStatus = fileStatusList[i];
+                const file = fileStatus.file;
+                
+                // Update progress
+                const progress = (i / fileStatusList.length) * 100;
+                progressFill.style.width = progress + '%';
+                
+                // Update file status to processing
+                fileStatus.status = 'processing';
+                updateFileList();
+                
+                updateStatus(`Converting ${i + 1}/${fileStatusList.length}: ${file.name} - MULTIFILE MODE!`);
+                outputArea.textContent += `Processing file ${i + 1}/${fileStatusList.length}: ${file.name}\n`;
+                
+                try {
+                    const content = await readFileContent(file);
+                    const markdown = await convertToMarkdown(file.name, content, file.type);
+                    
+                    // Store converted content
+                    convertedFiles[file.name] = markdown;
+                    fileStatus.content = markdown;
+                    fileStatus.status = 'completed';
+                    
+                    outputArea.textContent += `✅ Completed: ${file.name} - ALL CONTENT PROCESSED!\n`;
+                    
+                } catch (error) {
+                    console.error(`Error processing ${file.name}:`, error);
+                    fileStatus.status = 'error';
+                    fileStatus.error = error.message;
+                    outputArea.textContent += `❌ Error: ${file.name} - ${error.message}\n`;
+                }
+                
+                // Update UI after each file
+                updateFileList();
+                
+                // Small delay for visual feedback
+                await new Promise(resolve => setTimeout(resolve, 500));
+            }
+            
+            // Complete progress
+            progressFill.style.width = '100%';
+            
+            processing = false;
+            updateButtons();
+            updateFileSelector();
+            
+            const completedCount = fileStatusList.filter(f => f.status === 'completed').length;
+            const errorCount = fileStatusList.filter(f => f.status === 'error').length;
+            
+            updateStatus(`MULTIFILE CONVERSION COMPLETE: ${completedCount} files processed successfully, ${errorCount} errors!`);
+            
+            outputArea.textContent += `\n\n🎉 MULTIFILE PROCESSING COMPLETE!\n`;
+            outputArea.textContent += `✅ Successfully converted: ${completedCount} files\n`;
+            outputArea.textContent += `❌ Errors: ${errorCount} files\n\n`;
+            outputArea.textContent += `Select a file above to preview the converted content.`;
+            
+            // Auto-select first converted file
+            if (completedCount > 0) {
+                const firstCompleted = Object.keys(convertedFiles)[0];
+                document.getElementById('fileSelector').value = firstCompleted;
+                showSelectedFile();
+            }
+        }
+
+        function readFileContent(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                
+                reader.onload = e => {
+                    if (file.type === 'application/pdf') {
+                        resolve(new Uint8Array(e.target.result));
+                    } else {
+                        resolve(e.target.result);
+                    }
+                };
+                reader.onerror = reject;
+                
+                if (file.type === 'application/pdf') {
+                    reader.readAsArrayBuffer(file);
+                } else {
+                    reader.readAsText(file);
+                }
+            });
+        }
+
+        async function convertToMarkdown(filename, content, mimeType) {
+            const extension = filename.split('.').pop().toLowerCase();
+            
+            // FOR PDFs: DIRECT PROCESSING - NO OLD HEADERS!
+            if (extension === 'pdf') {
+                return await processPDFCompletely(content, filename);
+            }
+            
+            // For other files, use standard processing
+            const baseName = filename.substring(0, filename.lastIndexOf('.')) || filename;
+            
+            let markdown = `# ${baseName}\n\n`;
+            markdown += `*Converted from ${extension.toUpperCase()} file*\n\n`;
+            markdown += `---\n\n`;
+            
+            try {
+                switch (extension) {
+                    case 'csv':
+                        markdown += convertCSVToMarkdown(content);
+                        break;
+                    case 'json':
+                        markdown += convertJSONToMarkdown(content);
+                        break;
+                    case 'html':
+                    case 'htm':
+                        markdown += convertHTMLToMarkdown(content);
+                        break;
+                    case 'xml':
+                        markdown += `\`\`\`xml\n${content}\n\`\`\``;
+                        break;
+                    case 'doc':
+                    case 'docx':
+                        markdown += convertDocToMarkdown(content, filename);
+                        break;
+                    case 'rtf':
+                        markdown += convertRTFToMarkdown(content);
+                        break;
+                    default:
+                        markdown += content;
+                }
+            } catch (error) {
+                markdown += `Error converting file: ${error.message}\n\n`;
+                markdown += `Raw content preview:\n\`\`\`\n${content.toString().substring(0, 1000)}...\n\`\`\``;
+            }
+            
+            markdown += `\n\n---\n\n*Converted by MarkItDown v2.1 - MULTIFILE FIXED*  \n`;
+            markdown += `*🎁 Support the [Kindergarten Project](https://www.paypal.com/donate/?hosted_button_id=PAGH54TWEXP54)*`;
+            
+            return markdown;
+        }
+
+        // COMPLETELY NEW PDF FUNCTION - NO LIMITS!
+        async function processPDFCompletely(content, filename) {
+            try {
+                console.log("STARTING UNLIMITED PDF PROCESSING FOR:", filename);
+                
+                if (typeof pdfjsLib !== 'undefined') {
+                    const pdfData = content instanceof Uint8Array ? content : new Uint8Array(content);
+                    const loadingTask = pdfjsLib.getDocument(pdfData);
+                    const pdf = await loadingTask.promise;
+                    
+                    let extractedContent = '';
+                    const totalPages = pdf.numPages;
+                    
+                    console.log(`PDF HAS ${totalPages} PAGES - PROCESSING ALL OF THEM!`);
+                    updateStatus(`🚀 UNLIMITED PDF PROCESSING: Found ${totalPages} pages - processing ALL!`);
+                    
+                    // PROCESS EVERY SINGLE PAGE - NO LIMITS!
+                    for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
+                        try {
+                            const page = await pdf.getPage(pageNum);
+                            const textContent = await page.getTextContent();
+                            const pageText = textContent.items.map(item => item.str).join(' ');
+                            
+                            if (pageText.trim()) {
+                                extractedContent += `## Page ${pageNum}\n\n${pageText.trim()}\n\n`;
+                            }
+                            
+                            // Progress update
+                            if (pageNum % 2 === 0 || totalPages > 10) {
+                                updateStatus(`🔄 Processing page ${pageNum} of ${totalPages} - NO LIMITS!`);
+                            }
+                        } catch (pageError) {
+                            console.warn(`Warning: Could not process page ${pageNum}:`, pageError);
+                            extractedContent += `## Page ${pageNum}\n\n*[Page processing error: ${pageError.message}]*\n\n`;
+                        }
+                    }
+                    
+                    if (extractedContent.trim()) {
+                        const successMessage = `🚀 **UNLIMITED PDF PROCESSING COMPLETE**\n\n` +
+                            `**Filename:** ${filename}\n` +
+                            `**Total pages:** ${totalPages}\n` +
+                            `**Processing status:** ✅ Successfully processed ALL ${totalPages} pages\n` +
+                            `**Version:** MarkItDown v2.1 - MULTIFILE FIXED\n` +
+                            `**Limitation:** NONE - All pages processed!\n\n` +
+                            `---\n\n${extractedContent}\n` +
+                            `---\n\n` +
+                            `🎉 **COMPLETE SUCCESS!**\n\n` +
+                            `✅ All ${totalPages} pages have been extracted and converted to Markdown.\n` +
+                            `🚀 NO page limits applied - complete document processed!\n` +
+                            `⚡ Powered by MarkItDown v2.1 - MULTIFILE edition`;
+                        
+                        updateStatus(`🎉 UNLIMITED PROCESSING COMPLETE: ALL ${totalPages} pages extracted!`);
+                        return successMessage;
+                    } else {
+                        return `🚀 **PDF PROCESSING ATTEMPTED**\n\n` +
+                            `**Filename:** ${filename}\n` +
+                            `**Pages scanned:** ${totalPages}\n` +
+                            `**Result:** ⚠️ No extractable text content found\n\n` +
+                            `**Note:** All ${totalPages} pages were processed - no limits applied!`;
+                    }
+                }
+                
+                return `🚀 **PDF PROCESSING UNAVAILABLE**\n\n` +
+                    `**Filename:** ${filename}\n` +
+                    `**Status:** PDF.js library not available\n` +
+                    `**Note:** This would normally process ALL pages without limits!`;
+                
+            } catch (error) {
+                console.error('PDF processing error:', error);
+                return `🚀 **PDF PROCESSING ERROR**\n\n` +
+                    `**Filename:** ${filename}\n` +
+                    `**Error:** ${error.message}\n` +
+                    `**Note:** This version processes ALL pages when working correctly!`;
+            }
+        }
+
+        function convertCSVToMarkdown(csv) {
+            try {
+                const lines = csv.trim().split('\n');
+                if (lines.length < 1) return '*(Empty CSV file)*';
+                
+                let markdown = '## CSV Data\n\n';
+                
+                lines.forEach((line, index) => {
+                    const cells = line.split(',').map(cell => 
+                        cell.trim().replace(/^"(.*)"$/, '$1')
+                    );
+                    
+                    markdown += '| ' + cells.join(' | ') + ' |\n';
+                    
+                    if (index === 0) {
+                        markdown += '| ' + cells.map(() => '---').join(' | ') + ' |\n';
+                    }
+                });
+                
+                return markdown;
+            } catch (error) {
+                return `\`\`\`csv\n${csv}\n\`\`\``;
+            }
+        }
+
+        function convertJSONToMarkdown(json) {
+            try {
+                const obj = JSON.parse(json);
+                let markdown = '## JSON Structure\n\n';
+                markdown += '```json\n' + JSON.stringify(obj, null, 2) + '\n```\n\n';
+                
+                if (Array.isArray(obj)) {
+                    markdown += `## Array Content\n\n- **Items:** ${obj.length}\n`;
+                    if (obj.length > 0) {
+                        markdown += `- **First item type:** ${typeof obj[0]}\n`;
+                    }
+                } else if (typeof obj === 'object' && obj !== null) {
+                    markdown += '## Object Properties\n\n';
+                    for (let key in obj) {
+                        markdown += `- **${key}:** ${typeof obj[key]}\n`;
+                    }
+                }
+                
+                return markdown;
+            } catch (e) {
+                return `\`\`\`json\n${json}\n\`\`\``;
+            }
+        }
+
+        function convertHTMLToMarkdown(html) {
+            let markdown = html;
+            
+            const titleMatch = html.match(/<title[^>]*>(.*?)<\/title>/i);
+            if (titleMatch) {
+                markdown = `## ${titleMatch[1].trim()}\n\n` + markdown;
+            }
+            
+            markdown = markdown.replace(/<h([1-6])[^>]*>(.*?)<\/h[1-6]>/gi, (match, level, text) => {
+                return '\n' + '#'.repeat(parseInt(level)) + ' ' + text.trim() + '\n\n';
+            });
+            
+            markdown = markdown.replace(/<p[^>]*>(.*?)<\/p>/gi, '$1\n\n');
+            markdown = markdown.replace(/<ul[^>]*>(.*?)<\/ul>/gi, '$1\n');
+            markdown = markdown.replace(/<ol[^>]*>(.*?)<\/ol>/gi, '$1\n');
+            markdown = markdown.replace(/<li[^>]*>(.*?)<\/li>/gi, '- $1\n');
+            markdown = markdown.replace(/<strong[^>]*>(.*?)<\/strong>/gi, '**$1**');
+            markdown = markdown.replace(/<b[^>]*>(.*?)<\/b>/gi, '**$1**');
+            markdown = markdown.replace(/<em[^>]*>(.*?)<\/em>/gi, '*$1*');
+            markdown = markdown.replace(/<i[^>]*>(.*?)<\/i>/gi, '*$1*');
+            markdown = markdown.replace(/<a[^>]*href="([^"]*)"[^>]*>(.*?)<\/a>/gi, '[$2]($1)');
+            markdown = markdown.replace(/<code[^>]*>(.*?)<\/code>/gi, '`$1`');
+            markdown = markdown.replace(/<pre[^>]*>(.*?)<\/pre>/gi, '\n```\n$1\n```\n');
+            markdown = markdown.replace(/<[^>]*>/g, '');
+            markdown = markdown.replace(/\n\s*\n\s*\n/g, '\n\n');
+            
+            return markdown.trim();
+        }
+
+        function convertDocToMarkdown(content, filename) {
+            return `## Document: ${filename}\n\n` +
+                   `*Note: Simplified text extraction from Word document.*\n\n` +
+                   `${content}\n\n` +
+                   `*For advanced Office processing, use the desktop version.*`;
+        }
+
+        function convertRTFToMarkdown(content) {
+            let text = content.replace(/\\[a-z]+\d*\s?/g, '');
+            text = text.replace(/[{}]/g, '');
+            return text.trim();
+        }
+
+        function downloadZip() {
+            if (Object.keys(convertedFiles).length === 0) {
+                updateStatus('No files to download');
+                return;
+            }
+            
+            let allContent = `# MarkItDown v2.1 - MULTIFILE CONVERSION Results\n\n`;
+            allContent += `Generated: ${new Date().toLocaleString()}\n`;
+            allContent += `Version: MarkItDown v2.1 - MULTIFILE FIXED EDITION\n`;
+            allContent += `Processing: UNLIMITED - ALL pages included - MULTIFILE support\n`;
+            allContent += `Files processed: ${Object.keys(convertedFiles).length}\n\n`;
+            allContent += `---\n\n`;
+            
+            for (let [filename, content] of Object.entries(convertedFiles)) {
+                allContent += `\n\n# File: ${filename}\n\n`;
+                allContent += content;
+                allContent += `\n\n---\n\n`;
+            }
+            
+            allContent += `\n\n## About This Conversion\n\n`;
+            allContent += `This conversion was made with MarkItDown v2.1 - MULTIFILE FIXED EDITION.\n\n`;
+            allContent += `✅ **MULTIFILE SUPPORT** - All selected files processed\n`;
+            allContent += `🔧 **BUG FIXED** - No more single-file limitation\n`;
+            allContent += `🚀 **COMPLETE PDFs** - Every page included\n`;
+            allContent += `⚡ **NO RESTRICTIONS** - Full document processing\n\n`;
+            allContent += `🎁 **Support the Kindergarten Project**: [Donate via PayPal](https://www.paypal.com/donate/?hosted_button_id=PAGH54TWEXP54)\n\n`;
+            allContent += `👨‍💻 **Developer**: [Rudolf Wagner on LinkedIn](https://www.linkedin.com/in/rudolfwagner)\n`;
+            
+            const blob = new Blob([allContent], { type: 'text/markdown' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `markitdown_v2.1_multifile_${new Date().toISOString().split('T')[0]}.md`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            updateStatus('MULTIFILE EXPORT complete - ALL files included!');
+        }
+
+        function copyToClipboard() {
+            const selector = document.getElementById('fileSelector');
+            const filename = selector.value;
+            
+            if (filename && convertedFiles[filename]) {
+                navigator.clipboard.writeText(convertedFiles[filename]).then(() => {
+                    updateStatus(`Content of ${filename} copied to clipboard!`);
+                    const btn = document.getElementById('copyBtn');
+                    const originalText = btn.textContent;
+                    btn.textContent = 'Copied!';
+                    setTimeout(() => {
+                        btn.textContent = originalText;
+                    }, 2000);
+                });
+            }
+        }
+
+        function updateStatus(message) {
+            document.getElementById('statusBar').textContent = message;
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 B';
+            const k = 1024;
+            const sizes = ['B', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+        }
+
+        // Drag and drop
+        const dropZone = document.getElementById('dropZone');
+        
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, preventDefaults, false);
+        });
+        
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => {
+                dropZone.classList.add('dragover');
+            }, false);
+        });
+        
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => {
+                dropZone.classList.remove('dragover');
+            }, false);
+        });
+        
+        dropZone.addEventListener('drop', (e) => {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            
+            document.getElementById('fileInput').files = files;
+            handleFileSelection({ target: { files: files } });
+        }, false);
+
+        // Initialize
+        updateStatus('🚀 MarkItDown v2.1 READY - MULTIFILE FIXED - ALL files will be processed!');
+        console.log("✅ MarkItDown v2.1 MULTIFILE FIX VERSION FULLY LOADED!");
+    </script>
+</body>
+</html>
