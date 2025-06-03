@@ -28,6 +28,8 @@
 ## 🚀 **Schnellstart**
 
 ### Option 1: Web Version (Sofort verwenden) - NEU!
+[![Web App starten](https://img.shields.io/badge/🌐-Web%20App%20starten-blue.svg?style=for-the-badge)](https://rlwadh.github.io/markitdown-desktop/web/markitdown_v3.html)
+
 ```bash
 # Datei herunterladen
 curl -O https://raw.githubusercontent.com/rlwadh/markitdown-desktop/main/web/markitdown_v3.html
