@@ -1,200 +1,230 @@
-# 🔄 MarkItDown Desktop
+# MarkItDown Desktop & Web v3.0
 
-Eine benutzerfreundliche Desktop-Anwendung für **Microsoft's MarkItDown Tool** von **Rudolf Wagner**.
+🔄 **Professional document conversion tools** - Convert files to Markdown with unlimited processing power!
 
-> **Basiert auf:** [Microsoft MarkItDown](https://github.com/microsoft/markitdown) - Ein Python-Tool zur Konvertierung verschiedener Dateiformate zu Markdown.
+[![Version](https://img.shields.io/badge/version-v3.0-blue.svg)](https://github.com/rlwadh/markitdown-desktop)
+[![Python](https://img.shields.io/badge/python-3.7+-green.svg)](https://python.org)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Kindergarten](https://img.shields.io/badge/supports-kindergarten%20project-red.svg)](https://www.paypal.com/donate/?hosted_button_id=PAGH54TWEXP54)
 
-[![Python](https://img.shields.io/badge/Python-3.7+-blue.svg)](https://python.org)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Based on](https://img.shields.io/badge/Based%20on-Microsoft%20MarkItDown-orange.svg)](https://github.com/microsoft/markitdown)
-[![Kindergarten](https://img.shields.io/badge/Supports-Kindergarten%20Project-red.svg)](https://www.paypal.com/donate/?hosted_button_id=PAGH54TWEXP54)
+> **Zwei mächtige Versionen**: Desktop-App (Python) und Web-App (HTML) - beide mit unbegrenzter PDF-Verarbeitung und Multi-File-Support!
 
-## 🚀 Sofort-Start für Dummies
+## 🎯 **Was ist NEU in v3.0**
 
-**Keine Sorge - auch ohne Programmierkenntnisse!**
+### 🖥️ Desktop Version (Python)
+- ✅ **Multi-File Batch-Verarbeitung** - Hunderte Dateien auf einmal konvertieren
+- ✅ **ZIP-Export-Funktionalität** - Alle konvertierten Dateien in einem Archiv herunterladen
+- ✅ **Ordnerstruktur beibehalten** - Ursprüngliche Verzeichnis-Struktur erhalten
+- ✅ **Fortschritt-Tracking** - Echtzeitanzeige des Konvertierungsfortschritts
+- ✅ **Cross-Platform** - Funktioniert auf Windows, macOS und Linux
 
-### Windows:
-1. **Python installieren:** Gehe zu https://python.org/downloads → **"Download Python"** → ✅ **"Add Python to PATH"** aktivieren
-2. **App herunterladen:** [Rechtsklick hier → "Ziel speichern unter"](https://raw.githubusercontent.com/rudolfwagner/markitdown-desktop/main/markitdown_desktop.py) → als `markitdown_desktop.py` speichern
-3. **Terminal öffnen:** Windows-Taste + R → `cmd` eingeben → Enter
-4. **Zum Ordner navigieren:** `cd Downloads` (oder wo du die Datei gespeichert hast)
-5. **App starten:** `python markitdown_desktop.py`
-6. **Fertig!** Die App installiert automatisch alles weitere
+### 🌐 Web Version (HTML) - NEU!
+- ✅ **MULTIFILE FIX** - Verarbeitet jetzt ALLE ausgewählten Dateien (Single-File-Bug behoben)
+- ✅ **Unbegrenzte PDF-Verarbeitung** - KEINE 10-Seiten-Begrenzung, verarbeitet komplette Dokumente
+- ✅ **Drag & Drop Interface** - Einfache Dateiauswahl
+- ✅ **Browser-basiert** - Keine Installation erforderlich
+- ✅ **Individuelle Datei-Vorschau** - Jede konvertierte Datei einzeln prüfen
 
-### macOS:
-1. **Terminal öffnen:** Spotlight (Cmd+Space) → "Terminal" eingeben → Enter
-2. **App herunterladen:** `curl -O https://raw.githubusercontent.com/rudolfwagner/markitdown-desktop/main/markitdown_desktop.py`
-3. **App starten:** `python3 markitdown_desktop.py`
-4. **Fertig!** Automatische Installation aller Abhängigkeiten
+## 🚀 **Schnellstart**
 
-### Bei Problemen:
-- **Python nicht gefunden?** Installiere Python von https://python.org
-- **Fehler beim Download?** Versuche den direkten Download-Link oben
-- **Immer noch Probleme?** Erstelle ein [Issue hier](https://github.com/rudolfwagner/markitdown-desktop/issues)
-
----
-
-## 🎁 Besonderes Projekt
-
-Der Entwickler gründet einen Kindergarten! Unterstütze dieses bedeutungsvolle Projekt:
-**[💝 Jetzt spenden via PayPal](https://www.paypal.com/donate/?hosted_button_id=PAGH54TWEXP54)**
-
-## 📸 Screenshots
-
-![MarkItDown Desktop Interface](docs/screenshot.png)
-*Die moderne, intuitive Benutzeroberfläche*
-
-## ✨ Features
-
-- 🔄 **Auto-Konvertierung** - Sofortige Umwandlung nach Dateiauswahl
-- 📁 **Drag & Drop** - Dateien einfach in die App ziehen
-- 👁️ **Live-Vorschau** - HTML-Preview der Markdown-Ausgabe
-- 📋 **Ein-Klick Export** - Kopieren oder als .md speichern
-- 📊 **Statistiken** - Zeilen, Wörter, Zeichen-Zählung
-- 🎁 **Kindergarten-Unterstützung** - Direkter Spendenlink integriert
-- 🛡️ **macOS optimiert** - Crash-sicher und stabil
-
-## 📋 Unterstützte Dateiformate
-
-| Kategorie | Formate | Beschreibung |
-|-----------|---------|--------------|
-| **📄 Office** | `.docx`, `.doc`, `.xlsx`, `.xls`, `.pptx`, `.ppt` | Microsoft Office Dokumente |
-| **📕 PDF** | `.pdf` | Alle PDF-Dokumente |
-| **🖼️ Bilder** | `.jpg`, `.jpeg`, `.png`, `.gif` | Mit OCR-Texterkennung |
-| **🎵 Audio** | `.mp3`, `.wav` | Mit Sprachtranskription |
-| **🌐 Web/Daten** | `.html`, `.csv`, `.json`, `.xml` | Strukturierte Daten |
-| **📦 Archive** | `.zip` | Iteriert über Inhalte |
-| **📖 E-Books** | `.epub` | Elektronische Bücher |
-
-## 🚀 Installation & Start
-
-### Voraussetzungen
-- **Python 3.7+** ([Download hier](https://python.org/downloads/))
-- **Internet-Verbindung** (für automatische Installation der Abhängigkeiten)
-
-### Schnellstart
-
-1. **Repository herunterladen:**
-   ```bash
-   git clone https://github.com/rudolfwagner/markitdown-desktop.git
-   cd markitdown-desktop
-   ```
-
-2. **App starten:**
-   ```bash
-   python markitdown_desktop.py
-   ```
-
-3. **Automatische Installation:** Die App installiert alle benötigten Pakete automatisch beim ersten Start!
-
-### Alternative Downloads
-
-- **[📥 Neueste Version (ZIP)](https://github.com/rudolfwagner/markitdown-desktop/archive/main.zip)**
-- **[📋 Nur Python-Datei](https://raw.githubusercontent.com/rudolfwagner/markitdown-desktop/main/markitdown_desktop.py)**
-
-## 🎯 Verwendung
-
-1. **Datei auswählen** - Klicke auf die blaue Fläche oder den "Datei auswählen" Button
-2. **Auto-Konvertierung** - Die Umwandlung startet automatisch
-3. **Markdown anzeigen** - Das Ergebnis erscheint rechts
-4. **Exportieren** - Kopieren, Speichern oder Vorschau
-
-## 🎁 Den Kindergarten unterstützen
-
-Dieser Entwickler gründet einen Kindergarten! Jede Spende hilft, eine liebevolle Umgebung für die frühkindliche Bildung zu schaffen.
-
-**[🎁 Jetzt spenden via PayPal](https://www.paypal.com/donate/?hosted_button_id=PAGH54TWEXP54)**
-
-*Direkt aus der App heraus spenden - Spendenbutton ist integriert!*
-
-## 🛠️ Entwicklung
-
-### Lokale Entwicklung
+### Option 1: Web Version (Sofort verwenden) - NEU!
 ```bash
-git clone https://github.com/rudolfwagner/markitdown-desktop.git
-cd markitdown-desktop
-pip install -r requirements.txt
-python markitdown_desktop.py
+# Datei herunterladen
+curl -O https://raw.githubusercontent.com/rlwadh/markitdown-desktop/main/web/markitdown_v3.html
+
+# In Browser öffnen - FERTIG!
 ```
 
-### Dependencies
-- `markitdown[all]` - Microsoft's MarkItDown Tool
-- `tkinter` - GUI Framework (meist vorinstalliert)
-- `Pillow` - Bildverarbeitung
-- `requests` - Netzwerk-Requests
+### Option 2: Desktop Version (Erweiterte Features)
+```bash
+# Repository klonen
+git clone https://github.com/rlwadh/markitdown-desktop.git
+cd markitdown-desktop
 
-## 📄 Lizenz
+# Desktop App starten
+python desktop/markitdown_desktop_v3.py
+# Abhängigkeiten werden automatisch installiert!
+```
 
-MIT License - siehe [LICENSE](LICENSE) Datei für Details.
+### Option 3: Nur Desktop-App herunterladen
+```bash
+# Windows/Linux
+curl -O https://raw.githubusercontent.com/rlwadh/markitdown-desktop/main/desktop/markitdown_desktop_v3.py
+python markitdown_desktop_v3.py
 
-## 👨‍💻 Über den Entwickler
+# macOS
+curl -O https://raw.githubusercontent.com/rlwadh/markitdown-desktop/main/desktop/markitdown_desktop_v3.py
+python3 markitdown_desktop_v3.py
+```
 
-**Rudolf Wagner**
-- 🔗 LinkedIn: [Rudolf Wagner](https://www.linkedin.com/in/rudolfwagner)
-- 🎁 Kindergarten-Projekt: [Spenden](https://www.paypal.com/donate/?hosted_button_id=PAGH54TWEXP54)
+## 📁 **Repository-Struktur**
 
-## 🤝 Beitragen
+```
+markitdown-desktop/
+├── desktop/                          # 🖥️ Python Desktop-Anwendung
+│   ├── markitdown_desktop_v3.py      # Haupt-Desktop-Anwendung (NEU)
+│   └── markitdown_desktop.py         # Legacy Version (v2.5)
+├── web/                              # 🌐 HTML Web-Anwendung (NEU)
+│   ├── markitdown_v3.html            # Haupt-Web-Anwendung
+│   └── markitdown_v2.html            # Vorherige Version
+├── docs/                             # 📚 Dokumentation
+│   ├── CHANGELOG.md                  # Versionshistorie
+│   ├── INSTALLATION.md               # Installationsanleitung
+│   └── USAGE.md                      # Nutzungsanleitung
+├── examples/                         # 📋 Beispieldateien
+│   ├── sample.pdf
+│   ├── sample.docx
+│   └── sample.csv
+├── screenshots/                      # 📸 Screenshots
+│   ├── desktop_v3.png
+│   ├── web_v3.png
+│   └── comparison.png
+├── README.md                         # Diese Datei
+├── LICENSE                           # MIT Lizenz
+└── requirements.txt                  # Python-Abhängigkeiten
+```
 
-Beiträge sind willkommen! Bitte lese [CONTRIBUTING.md](CONTRIBUTING.md) für Details.
+## 📋 **Unterstützte Formate**
 
-1. Fork das Repository
-2. Erstelle einen Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit deine Änderungen (`git commit -m 'Add some AmazingFeature'`)
-4. Push zum Branch (`git push origin feature/AmazingFeature`)
-5. Öffne einen Pull Request
+| Kategorie | Formate | Verarbeitung |
+|-----------|---------|--------------|
+| **📄 Office** | Word, Excel, PowerPoint (.docx, .xlsx, .pptx, etc.) | ✅ Vollständiger Inhalt |
+| **📝 PDF** | Alle PDF-Dokumente | 🚀 **UNBEGRENZT** - Alle Seiten |
+| **🖼️ Bilder** | JPG, PNG, GIF | ✅ OCR-Texterkennung |
+| **🎵 Audio** | MP3, WAV | ✅ Sprach-Transkription |
+| **🌐 Web** | HTML, CSV, JSON, XML | ✅ Struktur erhalten |
+| **📦 Archive** | ZIP-Dateien | ✅ Inhalt-Extraktion |
+| **📖 E-Books** | EPUB | ✅ Text-Extraktion |
 
-## 🆘 Support
+## 🏆 **Hauptfunktionen**
 
-- **📖 Dokumentation:** [docs/](docs/)
-- **🐛 Bug Reports:** [Issues](https://github.com/rudolfwagner/markitdown-desktop/issues)
-- **💬 Diskussionen:** [Discussions](https://github.com/rudolfwagner/markitdown-desktop/discussions)
+### 🖥️ **Desktop Version**
+- **Multi-File-Verarbeitung**: Hunderte Dateien in einem Batch konvertieren
+- **ZIP-Export**: Alle Ergebnisse in organisiertem Archiv herunterladen
+- **Ordner-Erhaltung**: Ursprüngliche Verzeichnisstruktur beibehalten
+- **Fortschritt-Tracking**: Echtzeitanzeige des Konvertierungsfortschritts
+- **Fehlerbehandlung**: Problematische Dateien überspringen und fortfahren
+- **Vorschau-System**: Konvertierten Inhalt vor Export prüfen
 
-## 🙏 Danksagungen & Attribution
+### 🌐 **Web Version**
+- **Browser-basiert**: Keine Installation erforderlich
+- **Unbegrenzte PDFs**: Komplette Dokumente verarbeiten, nicht nur 10 Seiten
+- **Multi-File-Support**: Mehrere Dateien auswählen und konvertieren
+- **Drag & Drop**: Intuitive Dateiauswahl
+- **Echtzeit-Vorschau**: Ergebnisse sofort sehen
+- **Mobile-freundlich**: Funktioniert auf Tablets und Handys
 
-### Microsoft MarkItDown
-Diese Anwendung basiert auf dem **[Microsoft MarkItDown Tool](https://github.com/microsoft/markitdown)**:
-- **Repository:** https://github.com/microsoft/markitdown
-- **Lizenz:** MIT License
-- **Copyright:** Microsoft Corporation
-- **Beschreibung:** "Python tool for converting files and office documents to Markdown"
+## 💻 **Installation**
 
-**Unser Dank gilt Microsoft für die Bereitstellung dieses hervorragenden Open-Source-Tools!**
+### Desktop Version
+```bash
+# Methode 1: Automatisch (Empfohlen)
+python markitdown_desktop_v3.py
+# Abhängigkeiten werden beim ersten Start automatisch installiert
 
-### Genutzte Open-Source-Projekte
-- **[Python](https://python.org)** - Programmiersprache
-- **[Tkinter](https://docs.python.org/3/library/tkinter.html)** - GUI Framework
-- **[Pillow](https://pillow.readthedocs.io/)** - Bildverarbeitung
-- **[Requests](https://requests.readthedocs.io/)** - HTTP-Bibliothek
+# Methode 2: Manuell
+pip install "markitdown[all]"
+python markitdown_desktop_v3.py
+```
 
-### Community & Unterstützung
-- **Alle Spender** für die Unterstützung des Kindergarten-Projekts
-- **GitHub Community** für Feedback und Beiträge
-- **Open-Source Community** für die genutzten Bibliotheken
+### Web Version
+```bash
+# Keine Installation nötig!
+# Einfach markitdown_v3.html herunterladen und im Browser öffnen
+```
 
-## 🆕 Recent Updates
+## 🎯 **Verwendungsbeispiele**
 
-**v2.5 (June 2024)**
-- ✅ Fixed emoji display issues on macOS
-- ✅ Clean, text-based interface
-- ✅ Better cross-platform compatibility
-- ✅ All functionality maintained
+### Einzelne Datei konvertieren (Web)
+1. `markitdown_v3.html` öffnen
+2. PDF/Word/Excel-Datei hineinziehen
+3. "Convert to Markdown" klicken
+4. Ergebnis kopieren oder herunterladen
 
-**v2.4 (June 2024)**
-- ✅ Complete GUI with donation support
-- ✅ Kindergarten project integration
-- ✅ Professional documentation
+### Batch-Konvertierung mehrerer Dateien (Desktop)
+1. `python markitdown_desktop_v3.py` ausführen
+2. "Add Files" oder "Add Folder" klicken
+3. Verarbeitungsoptionen einstellen
+4. "Start Batch Processing" klicken
+5. Als ZIP exportieren wenn fertig
+
+### Große PDF verarbeiten (Beide Versionen)
+- **Traditionelle Tools**: Begrenzt auf 10 Seiten
+- **MarkItDown v3**: Verarbeitet ALLE Seiten ohne Limits!
+
+## 🔧 **Versionshistorie**
+
+| Version | Veröffentlichung | Hauptfunktionen |
+|---------|------------------|-----------------|
+| **v3.0** | 2024-06 | Multi-File-Support, MULTIFILE FIX, ZIP-Export, Web-Version |
+| **v2.5** | 2024-06 | Emoji-Fix macOS, Cross-Platform-Kompatibilität |
+| **v2.4** | 2024-06 | Vollständige GUI mit Spenden-Support |
+
+## 🛠️ **Technische Details**
+
+### Desktop-Anforderungen
+- Python 3.7+
+- tkinter (meist vorinstalliert)
+- MarkItDown-Bibliothek (automatisch installiert)
+- 50MB freier Speicherplatz
+
+### Web-Anforderungen
+- Moderner Browser (Chrome, Firefox, Safari, Edge)
+- JavaScript aktiviert
+- Kein Server erforderlich - läuft lokal
+
+### Unterstützte Betriebssysteme
+- ✅ Windows 10/11
+- ✅ macOS 10.14+
+- ✅ Linux (Ubuntu, Debian, etc.)
+
+## 🎁 **Unterstützung für ein großartiges Projekt**
+
+Dieses Projekt unterstützt ein bedeutungsvolles Kindergarten-Projekt! Der Entwickler gründet einen Kindergarten für qualitativ hochwertige frühkindliche Bildung.
+
+**💝 Jede Spende hilft, eine liebevolle Umgebung für die Entwicklung von Kindern zu schaffen:**
+
+[![Spenden](https://img.shields.io/badge/Spenden-PayPal-blue.svg)](https://www.paypal.com/donate/?hosted_button_id=PAGH54TWEXP54)
+
+Deine Unterstützung macht einen echten Unterschied im Leben von Kindern! 👶🎒📚
+
+## 👨‍💻 **Entwickler**
+
+**Rudolf Wagner**  
+🔗 [LinkedIn](https://www.linkedin.com/in/rudolfwagner)  
+🎁 [Kindergarten-Projekt unterstützen](https://www.paypal.com/donate/?hosted_button_id=PAGH54TWEXP54)
+
+## 🤝 **Mitwirken**
+
+Beiträge sind willkommen! Bitte zögere nicht, Issues und Pull Requests einzureichen.
+
+1. Repository forken
+2. Feature-Branch erstellen (`git checkout -b feature/amazing-feature`)
+3. Änderungen committen (`git commit -m 'Add amazing feature'`)
+4. Zum Branch pushen (`git push origin feature/amazing-feature`)
+5. Pull Request öffnen
+
+## 📄 **Lizenz**
+
+Dieses Projekt ist unter der MIT-Lizenz lizenziert - siehe [LICENSE](LICENSE) Datei für Details.
+
+## 🔗 **Verwandte Projekte**
+
+- [Microsoft MarkItDown](https://github.com/microsoft/markitdown) - Die zentrale Konvertierungs-Engine
+- [PDF.js](https://github.com/mozilla/pdf.js) - PDF-Verarbeitung in der Web-Version
+
+## 📞 **Support**
+
+- 🐛 **Bug-Reports**: [GitHub Issues](https://github.com/rlwadh/markitdown-desktop/issues)
+- 💡 **Feature-Anfragen**: [GitHub Discussions](https://github.com/rlwadh/markitdown-desktop/discussions)
+- 📧 **Direkter Kontakt**: [LinkedIn](https://www.linkedin.com/in/rudolfwagner)
 
 ---
 
 <div align="center">
 
-**⭐ Wenn dir dieses Projekt gefällt, gib ihm einen Stern auf GitHub! ⭐**
+**Entwickelt mit ❤️ für Dokumentenverarbeitung und 🎁 Kindergarten-Unterstützung**
 
-**🎁 [Unterstütze das Kindergarten-Projekt](https://www.paypal.com/donate/?hosted_button_id=PAGH54TWEXP54) 🎁**
-
-**🔗 [Microsoft MarkItDown Original](https://github.com/microsoft/markitdown) 🔗**
-
-*Entwickelt mit ❤️ von [Rudolf Wagner](https://www.linkedin.com/in/rudolfwagner)*
-*Basiert auf Microsoft MarkItDown unter MIT License*
+[![Dieses Repo mit Stern bewerten](https://img.shields.io/github/stars/rlwadh/markitdown-desktop?style=social)](https://github.com/rlwadh/markitdown-desktop)
 
 </div>
